@@ -20,7 +20,6 @@ class DinosaurSpec extends ObjectBehavior
                 }
 
                 return true;
-
             }
 
         ];
