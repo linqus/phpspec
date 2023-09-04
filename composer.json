@@ -1,0 +1,8 @@
+{
+    "license": "proprietary",
+    "type": "project",
+    "require-dev": {},
+    "config": {
+        "platform": {}
+    }
+}
