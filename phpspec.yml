@@ -5,3 +5,5 @@ suites:
 
 matchers:
     - spec\Matcher\BeGreaterMatcher
+
+formatter.name: pretty
