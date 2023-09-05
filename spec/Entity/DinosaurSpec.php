@@ -53,4 +53,29 @@ class DinosaurSpec extends ObjectBehavior
 
         $this->getLength()->shouldBeGreaterThan(12);
     }
+
+    function it_should_return_full_description()
+    {
+        $this->getDescription()->shouldReturn('The Unknown non-carnivorous dinosaur is 0 meter long');
+    }
+
+    function it_should_return_full_description_for_tyrannosaurus()
+    {
+        $this->beConstructedWith('Tyrannosaurus', true);
+        //$this->beConstructedWith('T-rex', true); //last construction wins
+
+        $this->setLength(12);
+        $this->getDescription()->shouldReturn('The Tyrannosaurus carnivorous dinosaur is 12 meter long');
+    }
+
+    function it_should_grow_a_large_velociraptor()
+    {
+        $this->beConstructedThrough('growVelociraptor', [5]);
+
+        $this->shouldBeAnInstanceOf(Dinosaur::class);
+        $this->getGenus()->shouldBeString();
+        $this->getGenus()->shouldBe('Velociraptor');
+        $this->getLength()->shouldBe(5);
+    }
+
 }
