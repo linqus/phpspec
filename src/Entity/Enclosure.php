@@ -12,6 +12,11 @@ class Enclosure
      */
     private $dinosaurs = [];
 
+    /**
+     * @var Security[]
+     */
+    private $securities = [];
+
     public function getDinosaurs(): array
     {
         return $this->dinosaurs;
@@ -23,8 +28,8 @@ class Enclosure
             throw new NotABuffetException('Do not mix carnivorous and non-carnivorous dinosaurs in the same enclosure');
         }
 
-        if (!$this->hasSecurityEnabled()) {
-            throw new DinosaursAreRunningRampantException();
+        if (!$this->isSecurityActive()) {
+            throw new DinosaursAreRunningRampantException('Are you craaazy?');
         }
 
         $this->dinosaurs[] = $dinosaur;
@@ -39,8 +44,14 @@ class Enclosure
         return $this->dinosaurs[0]->hasSameDietAs($dinosaur);
     }
 
-    public function hasSecurityEnabled(): bool
+    public function isSecurityActive(): bool
     {
+        foreach ($this->securities as $security) {
+            if ($security->getIsActive()) {
+                return true;
+            }
+        }
+
         return false;
     }
 }
