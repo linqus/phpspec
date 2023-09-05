@@ -4,6 +4,7 @@ namespace spec\App\Entity;
 
 use App\Entity\Dinosaur;
 use App\Entity\Enclosure;
+use App\Exception\DinosaursAreRunningRampantException;
 use App\Exception\NotABuffetException;
 use App\Factory\DinosaurFactory;
 use PhpSpec\ObjectBehavior;
@@ -34,5 +35,12 @@ class EnclosureSpec extends ObjectBehavior
 
         $this->shouldThrow(NotABuffetException::class)
             ->during('addDinosaur', [new Dinosaur('Tyrannosaurus', true)]);
+    }
+
+    function it_should_not_allow_to_add_dinosaurs_to_unsecured_enclosure()
+    {
+        //$this->shouldNotHaveSecurityEnabled();
+        $this->shouldThrow(new DinosaursAreRunningRampantException('Are you craaazy?'))
+            ->duringAddDinosaur(new Dinosaur('Velociraptor', true));
     }
 }
