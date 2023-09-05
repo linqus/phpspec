@@ -43,4 +43,14 @@ class Dinosaur
         return sprintf('The %s %scarnivorous dinosaur is %d meter long', $this->genus, $this->isCarnivorous?'':'non-',$this->getLength());
     }
 
+    public function isCarnivorous()
+    {
+        return $this->isCarnivorous;
+    }
+
+    public function hasSameDietAs(Dinosaur $dinosaur): bool
+    {
+        return $this->isCarnivorous() === $dinosaur->isCarnivorous();
+    }
+
 }
