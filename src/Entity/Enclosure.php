@@ -17,6 +17,23 @@ class Enclosure
      */
     private $securities = [];
 
+    public function __construct(bool $withBasicSecurity = false, array $dinosaurs = [])
+    {
+        if ($withBasicSecurity) {
+            $this->addSecurity(new Security('fence', true, $this));
+        }
+
+        
+        foreach ($dinosaurs as $dinosaur) {
+            $this->addDinosaur($dinosaur);
+        }
+    }
+
+    public function addSecurity(Security $security)
+    {
+        $this->securities[] = $security;
+    }
+
     public function getDinosaurs(): array
     {
         return $this->dinosaurs;
