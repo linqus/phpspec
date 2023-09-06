@@ -7,6 +7,7 @@ use App\Entity\Enclosure;
 use App\Factory\DinosaurFactory;
 use App\Service\EnclosureBuilderService;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class EnclosureBuilderServiceSpec extends ObjectBehavior
 {
@@ -29,7 +30,7 @@ class EnclosureBuilderServiceSpec extends ObjectBehavior
         $dino2 = new Dinosaur('Baby steganosaurus',false);
         $dino2->setLength(2);
 
-        $dinosaurFactory->growVelociraptor(5)->willReturn(
+        $dinosaurFactory->growVelociraptor(Argument::type('integer'))->willReturn(
             $dino1,
             $dino2
         );
