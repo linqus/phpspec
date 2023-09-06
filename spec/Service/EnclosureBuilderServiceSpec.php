@@ -6,11 +6,18 @@ use App\Entity\Dinosaur;
 use App\Entity\Enclosure;
 use App\Factory\DinosaurFactory;
 use App\Service\EnclosureBuilderService;
+use App\Service\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class EnclosureBuilderServiceSpec extends ObjectBehavior
 {
+
+    function let(DinosaurFactory $dinosaurFactory, EntityManagerInterface $entityManagerInterface)
+    {
+        $this->beConstructedWith($dinosaurFactory, $entityManagerInterface);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(EnclosureBuilderService::class);
@@ -18,11 +25,8 @@ class EnclosureBuilderServiceSpec extends ObjectBehavior
 
 
 
-    function it_builds_enclosure_with_dinosaurs(DinosaurFactory $dinosaurFactory)
+    function it_builds_enclosure_with_dinosaurs(DinosaurFactory $dinosaurFactory, EntityManagerInterface $entityManagerInterface)
     {
-
-        
-        $this->beConstructedWith($dinosaurFactory);
 
         $dino1 = new Dinosaur('Steganosaurus',false);
         $dino1->setLength(6);
@@ -52,5 +56,8 @@ class EnclosureBuilderServiceSpec extends ObjectBehavior
 
         $enclosure->getDinosaurs()[0]->shouldBe($dino1);
         $enclosure->getDinosaurs()[1]->shouldBe($dino2);
+
+        $entityManagerInterface->persist(Argument::type(Enclosure::class))->shouldHaveBeenCalled();
+        $entityManagerInterface->flush()->shouldHaveBeenCalled();
     }
 }

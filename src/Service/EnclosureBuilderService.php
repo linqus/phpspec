@@ -10,10 +10,12 @@ class EnclosureBuilderService
 {
 
     private DinosaurFactory $dinosaurFactory;
+    private $entityManager;
 
-    public function __construct(DinosaurFactory $dinosaurFactory)
+    public function __construct(DinosaurFactory $dinosaurFactory, EntityManagerInterface $entityManager)
     {
         $this->dinosaurFactory = $dinosaurFactory;
+        $this->$entityManager = $entityManager;
     }
 
     public function buildEnclosure(
@@ -25,6 +27,9 @@ class EnclosureBuilderService
 
         $this->addSecuritySystems($numberOfSecuritySystems, $enclosure);
         $this->addDinosaurs($numberOfDinosaurs, $enclosure);
+
+        $this->entityManager->persist($enclosure);
+        $this->entityManager->flush();
 
         return $enclosure;
     }
