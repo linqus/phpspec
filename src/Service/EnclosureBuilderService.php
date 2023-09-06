@@ -15,7 +15,7 @@ class EnclosureBuilderService
     public function __construct(DinosaurFactory $dinosaurFactory, EntityManagerInterface $entityManager)
     {
         $this->dinosaurFactory = $dinosaurFactory;
-        $this->$entityManager = $entityManager;
+        $this->entityManager = $entityManager;
     }
 
     public function buildEnclosure(
